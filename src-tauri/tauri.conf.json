@@ -1,20 +1,18 @@
 {
+  "$schema": "../node_modules/@tauri-apps/cli/schema.json",
   "build": {
-    "beforeBuildCommand": "npm run build",
-    "beforeDevCommand": "npm run dev",
-    "devPath": "localhost:3000",
-    "distDir": "/src"
+    "beforeBuildCommand": "",
+    "beforeDevCommand": "",
+    "devPath": "../ui",
+    "distDir": "../ui"
   },
   "package": {
-    "productName": "anime-tracker",
+    "productName": "Anime Tracker",
     "version": "0.1.0"
   },
   "tauri": {
     "allowlist": {
-      "all": false
-    },
-    "build": {
-      "target": "x86_64-unknown-linux-gnu" // Update the target for Linux
+      "all": true
     },
     "bundle": {
       "active": true,
@@ -48,9 +46,6 @@
         "digestAlgorithm": "sha256",
         "timestampUrl": ""
       }
-    },
-    "embeddedServer": {
-      "nodeIntegration": true
     },
     "security": {
       "csp": null
