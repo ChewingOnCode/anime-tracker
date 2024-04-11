@@ -7,6 +7,12 @@ from PyQt5.QtWidgets import (
     QTableWidget,
     QVBoxLayout,
     QWidget,
+    QTableWidgetItem,
+    QDialog,
+    QLabel,
+    QLineEdit,
+    QDialogButtonBox,
+    QMessageBox,
 )
 
 
@@ -26,7 +32,126 @@ def read_csv_data(file_path):
     return header, data
 
 
+# Function to populate the table with data
+def populate_table(header, data):
+    table.setColumnCount(len(header))
+    table.setHorizontalHeaderLabels(header)
+    for row in data:
+        rowPosition = table.rowCount()
+        table.insertRow(rowPosition)
+        for col, value in enumerate(row):
+            table.setItem(rowPosition, col, QTableWidgetItem(value))
+    return table
+
+
+# Class for the edit entry dialog
+class EditDialog(QDialog):
+    def __init__(self, data):
+        super().__init__()
+        self.setWindowTitle("Edit Entry")
+        self.layout = QVBoxLayout()
+
+        self.input_fields = []
+        for col, value in enumerate(data):
+            label = QLabel(f"Entry {col + 1}:")
+            line_edit = QLineEdit()
+            line_edit.setText(value)
+            self.input_fields.append(line_edit)
+            self.layout.addWidget(label)
+            self.layout.addWidget(line_edit)
+
+        self.buttons = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
+        self.buttons.accepted.connect(self.accept)
+        self.buttons.rejected.connect(self.reject)
+        self.layout.addWidget(self.buttons)
+
+        self.setLayout(self.layout)
+
+    # Function to get updated data from the dialog
+    def get_updated_data(self):
+        return [field.text() for field in self.input_fields]
+
+
+# Function to handle editing an entry
+def edit_entry():
+    selected_row = table.currentRow()
+    if selected_row >= 0 and selected_row < table.rowCount():
+        data = [
+            table.item(selected_row, col).text()
+            for col in range(table.columnCount())
+            if table.item(selected_row, col) is not None
+        ]
+
+        dialog = EditDialog(data)
+        if dialog.exec_():
+            new_data = dialog.get_updated_data()
+            for col, value in enumerate(new_data):
+                if col < table.columnCount():
+                    table.setItem(selected_row, col, QTableWidgetItem(value))
+                else:
+                    print(f"Column {col} is out of range.")
+    else:
+        print("Invalid selected row.")
+
+
+# Function to handle deleting an entry
+def delete_entry():
+    selected_row = table.currentRow()
+    if selected_row >= 0:
+        reply = QMessageBox.question(
+            window,
+            "Delete Entry",
+            "Are you sure you want to delete this entry?",
+            QMessageBox.Yes | QMessageBox.No,
+        )
+        if reply == QMessageBox.Yes:
+            table.removeRow(selected_row)
+
+
+# Function to add a new entry to the table
+def add_entry():
+    rowPosition = table.rowCount()
+    table.insertRow(rowPosition)
+    # Add default values for new entries, adjust according to your columns
+    table.setItem(rowPosition, 0, QTableWidgetItem("New Entry"))
+
+
 if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    window = QMainWindow()
+    window.setWindowTitle("Anime Series Tracker App")
+    window.setGeometry(100, 100, 800, 600)  # (x, y, width, height)
+
+    # Create and set up the table
+    table = QTableWidget(window)
+    layout = QVBoxLayout()
+
+    # Read the CSV file and populate the table
+    csv_file_path = "animeData.csv"
+    header, data = read_csv_data(csv_file_path)
+    table = populate_table(header, data)
+
+    # Connect the edit_entry function to a double-click on a table cell
+    table.cellDoubleClicked.connect(edit_entry)
+
+    layout.addWidget(table)
+
+    # Buttons for adding and deleting entries
+    button_add = QPushButton("Add Entry", window)
+    button_add.clicked.connect(add_entry)
+    layout.addWidget(button_add)
+
+    button_delete = QPushButton("Delete Entry", window)
+    button_delete.clicked.connect(delete_entry)
+    layout.addWidget(button_delete)
+
+    # Set the layout in the main widget
+    widget = QWidget()
+    widget.setLayout(layout)
+    window.setCentralWidget(widget)
+
+    window.show()
+    sys.exit(app.exec_())
     # Create the main application instance
     app = QApplication(sys.argv)
 
@@ -35,42 +160,41 @@ if __name__ == "__main__":
     window.setWindowTitle("Anime Series Tracker App")
     window.setGeometry(100, 100, 800, 600)  # (x, y, width, height)
 
-    # Create a button widget
-    button = QPushButton("Add Entry", window)
-    button.setGeometry(100, 100, 200, 50)
-    button.clicked.connect(on_button_click)
+    # Add a button to the main window
+    button_add = QPushButton("Add Entry", window)
+    button_add.setGeometry(100, 100, 200, 50)
+    button_add.clicked.connect(add_entry_dialog)
 
-    # Create a table widget
-    table = QTableWidget(window)
-    table.setGeometry(100, 200, 600, 400)
+    button_delete = QPushButton("Delete Entry", window)
+    button_delete.setGeometry(100, 200, 200, 50)
+    button_delete.clicked.connect(delete_entry)
+
+    # Define the path to your CSV file
+    csv_file_path = "animeData.csv"
+
+    # Add a table to the main window
+    table = QTableWidget()
+
+    # Add the table to the layout
+    layout = QVBoxLayout()
 
     # Read the CSV file
-    csv_file_path = "animeData.csv"
     header, data = read_csv_data(csv_file_path)
+    table = populate_table(header, data)
 
-    # Set the number of rows and columns in the table
-    table.setRowCount(len(data))
-    table.setColumnCount(len(header))
+    # Connect the edit_entry function to a signal (e.g., double click on a cell)
+    table.cellDoubleClicked.connect(edit_entry)
 
-    # Set the table headers
-    table.setHorizontalHeaderLabels(header)
-
-    # Populate the table with data
-    for row, entry in enumerate(data):
-        for col, value in enumerate(entry):
-            table.setItem(row, col, QTableWidgetItem(value))
-
-    # Set the layout for the main window
-    layout = QVBoxLayout()
-    layout.addWidget(button)
+    # Add the button and table to the layout
+    layout.addWidget(button_add)
+    layout.addWidget(button_delete)
     layout.addWidget(table)
 
-    # Create a central widget and set the layout
-    central_widget = QWidget()
-    central_widget.setLayout(layout)
+    # Add the layout to the main window
+    widget = QWidget()
+    widget.setLayout(layout)
 
-    # Set the central widget for the main window
-    window.setCentralWidget(central_widget)
+    window.setCentralWidget(widget)
 
     # Display the main window
     window.show()
