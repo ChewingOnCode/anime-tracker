@@ -1,7 +1,5 @@
 # Anime Series Tracker App
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/ChewingOnCode/anime-tracker)
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/ChewingOnCode/anime-tracker/CI)
-
 ## Overview
 The Anime Series Tracker App is a desktop application built with PyQt5, designed to help users track and manage their anime watching experience. It allows for adding, editing, and deleting anime entries, providing an organized way to keep track of watched and plan-to-watch anime series.
 
