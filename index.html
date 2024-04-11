@@ -23,13 +23,39 @@
         <label for="genre">Genre:</label>
         <input type="text" id="genre" name="genre" required /><br />
 
-        <!-- Add more fields as needed -->
+        <label for="rating">Rating:</label>
+        <input type="number" id="rating" name="rating" min="1" max="10" /><br />
+
+        <label for="completed">Completed:</label>
+        <input type="checkbox" id="completed" name="completed" /><br />
+
+        <label for="platform">Platform:</label>
+        <input type="text" id="platform" name="platform" /><br />
 
         <button type="submit">Add Anime</button>
         <button type="button" id="editBtn" style="display: none">
           Save Changes
         </button>
       </form>
+      <!-- Search and Filter Section -->
+      <div id="searchFilterSection">
+        <label for="searchInput">Search:</label>
+        <input type="text" id="searchInput" name="searchInput" />
+
+        <label for="genreFilter">Filter by Genre:</label>
+        <select id="genreFilter" name="genreFilter">
+          <option value="">All Genres</option>
+          <!-- Add more genre options as needed -->
+        </select>
+
+        <label for="completedFilter">Filter by Completion:</label>
+        <select id="completedFilter" name="completedFilter">
+          <option value="">All</option>
+          <option value="yes">Completed</option>
+          <option value="no">Not Completed</option>
+        </select>
+      </div>
+      <!-- Anime Entries Table -->
       <table id="entryTable">
         <thead>
           <tr>
