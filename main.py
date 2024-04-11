@@ -94,6 +94,34 @@ def edit_entry():
         print("Invalid selected row.")
 
 
+# Function to handle deleting an entry
+def delete_entry():
+    selected_row = table.currentRow()
+    if selected_row >= 0:
+        reply = QMessageBox.question(
+            window,
+            "Delete Entry",
+            "Are you sure you want to delete this entry?",
+            QMessageBox.Yes | QMessageBox.No,
+        )
+        if reply == QMessageBox.Yes:
+            table.removeRow(selected_row)
+
+
+# Function to add a new entry to the table
+def add_entry_dialog():
+    dialog = EditDialog([])
+    if dialog.exec_():
+        new_data = dialog.get_updated_data()
+        rowPosition = table.rowCount()
+        table.insertRow(rowPosition)
+        for col, value in enumerate(new_data):
+            if col < table.columnCount():
+                table.setItem(rowPosition, col, QTableWidgetItem(value))
+            else:
+                print(f"Column {col} is out of range.")
+
+
 # Function to add a new entry to the table
 def add_entry():
     rowPosition = table.rowCount()
@@ -112,9 +140,13 @@ if __name__ == "__main__":
     window.setGeometry(100, 100, 800, 600)  # (x, y, width, height)
 
     # Add a button to the main window
-    button = QPushButton("Add Entry", window)
-    button.setGeometry(100, 100, 200, 50)
-    button.clicked.connect(add_entry)
+    button_add = QPushButton("Add Entry", window)
+    button_add.setGeometry(100, 100, 200, 50)
+    button_.clicked.connect(add_entry_dialog)
+
+    button_delete = QPushButton("Delete Entry", window)
+    button_delete.setGeometry(100, 200, 200, 50)
+    button_delete.clicked.connect(delete_entry)
 
     # Define the path to your CSV file
     csv_file_path = "animeData.csv"
@@ -133,7 +165,8 @@ if __name__ == "__main__":
     table.cellDoubleClicked.connect(edit_entry)
 
     # Add the button and table to the layout
-    layout.addWidget(button)
+    layout.addWidget(button_add)
+    layout.addWidget(button_delete)
     layout.addWidget(table)
 
     # Add the layout to the main window
