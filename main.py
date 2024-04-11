@@ -72,6 +72,32 @@ class EditDialog(QDialog):
         return [field.text() for field in self.input_fields]
 
 
+# Class for the add entry dialog
+class AddDialog(QDialog):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Add New Entry")
+        self.layout = QVBoxLayout()
+
+        self.input_fields = []
+        for _ in range(2):  # Assuming 2 fields for "New Entry 1" and "New Entry 2"
+            label = QLabel(f"New Entry {len(self.input_fields) + 1}:")
+            line_edit = QLineEdit()
+            self.input_fields.append(line_edit)
+            self.layout.addWidget(label)
+            self.layout.addWidget(line_edit)
+
+        self.buttons = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
+        self.buttons.accepted.connect(self.accept)
+        self.buttons.rejected.connect(self.reject)
+        self.layout.addWidget(self.buttons)
+
+        self.setLayout(self.layout)
+
+    def get_new_data(self):
+        return [field.text() for field in self.input_fields]
+
+
 # Function to handle editing an entry
 def edit_entry():
     selected_row = table.currentRow()
@@ -142,7 +168,7 @@ if __name__ == "__main__":
     # Add a button to the main window
     button_add = QPushButton("Add Entry", window)
     button_add.setGeometry(100, 100, 200, 50)
-    button_.clicked.connect(add_entry_dialog)
+    button_add.clicked.connect(add_entry_dialog)
 
     button_delete = QPushButton("Delete Entry", window)
     button_delete.setGeometry(100, 200, 200, 50)
