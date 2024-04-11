@@ -1,18 +1,38 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QTableWidget, QVBoxLayout, QWidget
+import csv
+from PyQt5.QtWidgets import (
+    QApplication,
+    QMainWindow,
+    QPushButton,
+    QTableWidget,
+    QVBoxLayout,
+    QWidget,
+    QTableWidgetItem,
+    QDialog,
+    QLabel,
+    QLineEdit,
+    QDialogButtonBox,
+    QMessageBox,
+)
 
+
+# Function to handle button click event
 def on_button_click():
     print("Button clicked")
 
+
+# Function to read data from a CSV file
 def read_csv_data(file_path):
     data = []
-    with open(file_path, newline='') as csvfile:
+    with open(file_path, newline="") as csvfile:
         csvreader = csv.reader(csvfile)
         header = next(csvreader)  # Get the header row
         for row in csvreader:
             data.append(row)
     return header, data
 
+
+# Function to populate the table with data
 def populate_table(header, data):
     table.setColumnCount(len(header))
     table.setHorizontalHeaderLabels(header)
@@ -21,45 +41,109 @@ def populate_table(header, data):
         table.insertRow(rowPosition)
         for col, value in enumerate(row):
             table.setItem(rowPosition, col, QTableWidgetItem(value))
+    return table
 
 
+# Class for the edit entry dialog
+class EditDialog(QDialog):
+    def __init__(self, data):
+        super().__init__()
+        self.setWindowTitle("Edit Entry")
+        self.layout = QVBoxLayout()
 
-# Create the main application instance
-app = QApplication(sys.argv)
+        self.input_fields = []
+        for col, value in enumerate(data):
+            label = QLabel(f"Entry {col + 1}:")
+            line_edit = QLineEdit()
+            line_edit.setText(value)
+            self.input_fields.append(line_edit)
+            self.layout.addWidget(label)
+            self.layout.addWidget(line_edit)
 
-# Create a main window
-window = QMainWindow()
-window.setWindowTitle('Anime Series Tracker App')
-window.setGeometry(100, 100, 800, 600)  # (x, y, width, height)
+        self.buttons = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
+        self.buttons.accepted.connect(self.accept)
+        self.buttons.rejected.connect(self.reject)
+        self.layout.addWidget(self.buttons)
 
-# Add a button to the main window
-button = QPushButton('Add Entry', window)
-button.setGeometry(100, 100, 200, 50)
-button.clicked.connect(on_button_click)
+        self.setLayout(self.layout)
 
-# Define the path to your CSV file
-csv_file_path = 'animeData.csv'
+    # Function to get updated data from the dialog
+    def get_updated_data(self):
+        return [field.text() for field in self.input_fields]
 
-# Read the CSV file
-header, data = read_csv_data(csv_file_path)
-populate_table(header, data)
 
-# Add a table to the main window
-table = QTableWidget()
+# Function to handle editing an entry
+def edit_entry():
+    selected_row = table.currentRow()
+    if selected_row >= 0 and selected_row < table.rowCount():
+        data = [
+            table.item(selected_row, col).text()
+            for col in range(table.columnCount())
+            if table.item(selected_row, col) is not None
+        ]
 
-# Add the table to the layout
-layout = QVBoxLayout()
-layout.addWidget(button)
-layout.addWidget(table)
+        dialog = EditDialog(data)
+        if dialog.exec_():
+            new_data = dialog.get_updated_data()
+            for col, value in enumerate(new_data):
+                if col < table.columnCount():
+                    table.setItem(selected_row, col, QTableWidgetItem(value))
+                else:
+                    print(f"Column {col} is out of range.")
+    else:
+        print("Invalid selected row.")
 
-# Add the layout to the main window
-widget = QWidget()
-widget.setLayout(layout)
 
-window.setCentralWidget(widget)
+# Function to add a new entry to the table
+def add_entry():
+    rowPosition = table.rowCount()
+    table.insertRow(rowPosition)
+    table.setItem(rowPosition, 0, QTableWidgetItem("New Entry 1"))
+    table.setItem(rowPosition, 1, QTableWidgetItem("New Entry 2"))
 
-# Display the main window
-window.show()
 
-# Start the application event loop
-sys.exit(app.exec_())
+if __name__ == "__main__":
+    # Create the main application instance
+    app = QApplication(sys.argv)
+
+    # Create a main window
+    window = QMainWindow()
+    window.setWindowTitle("Anime Series Tracker App")
+    window.setGeometry(100, 100, 800, 600)  # (x, y, width, height)
+
+    # Add a button to the main window
+    button = QPushButton("Add Entry", window)
+    button.setGeometry(100, 100, 200, 50)
+    button.clicked.connect(add_entry)
+
+    # Define the path to your CSV file
+    csv_file_path = "animeData.csv"
+
+    # Add a table to the main window
+    table = QTableWidget()
+
+    # Add the table to the layout
+    layout = QVBoxLayout()
+
+    # Read the CSV file
+    header, data = read_csv_data(csv_file_path)
+    table = populate_table(header, data)
+
+    # Connect the edit_entry function to a signal (e.g., double click on a cell)
+    table.cellDoubleClicked.connect(edit_entry)
+
+    # Add the button and table to the layout
+    layout.addWidget(button)
+    layout.addWidget(table)
+
+    # Add the layout to the main window
+    widget = QWidget()
+    widget.setLayout(layout)
+
+    window.setCentralWidget(widget)
+
+    # Display the main window
+    window.show()
+
+    # Start the application event loop
+    sys.exit(app.exec_())
