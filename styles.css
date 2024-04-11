@@ -1,24 +1,166 @@
+/* CSS for NUE Minimalistic Clean Look */
+
+/* Custom color variables */
+:root {
+  --primary-color: #121212; /* Dark Background */
+  --accent-color: #39ff14; /* Neon Green */
+  --text-color: #ffffff; /* White Text */
+}
+/* Global styles */
 body {
-  font-family: Arial, sans-serif;
+  font-family: "Roboto", sans-serif;
+  background-color: #121212; /* Dark Background */
+  color: #ffffff; /* White Text */
   margin: 0;
   padding: 0;
-  background-color: #f0f0f0;
 }
 
-header {
-  background-color: #333;
-  color: #fff;
-  padding: 10px;
-  text-align: center;
-}
-
-h1 {
-  margin: 0;
-  font-size: 24px;
-}
-
-main {
+.container {
+  max-width: 800px;
+  margin: 0 auto;
   padding: 20px;
 }
 
-/* Add more CSS styles as needed for your interface */
+header {
+  text-align: center;
+  padding: 20px 0;
+}
+
+header h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+form {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+input[type="text"],
+textarea,
+input[type="number"],
+button {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+  color: #ffffff; /* White Text */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Glowing effect */
+}
+
+input[type="text"]::placeholder,
+textarea::placeholder {
+  color: rgba(255, 255, 255, 0.5); /* Placeholder text color */
+}
+
+input[type="radio"] {
+  margin-right: 5px;
+  appearance: none; /* Remove default radio button appearance */
+}
+
+input[type="radio"]::before {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid #ffffff; /* White border for radio button */
+  background-color: transparent;
+  vertical-align: middle; /* Align radio button vertically */
+}
+
+input[type="radio"]:checked::before {
+  background-color: #39ff14; /* Neon Green when checked */
+}
+
+button {
+  background-color: #39ff14; /* Neon Green */
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #29b813; /* Brighter green on hover */
+}
+
+.radio-group {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.radio-group label {
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.radio-group span {
+  color: #ffffff; /* White text color */
+  font-size: 1rem;
+}
+
+/* Updated CSS for Filter Section */
+.filter-group {
+  display: inline-block;
+  margin-right: 15px;
+}
+
+.filter-group label {
+  color: #ffffff; /* White label text */
+  margin-right: 5px;
+}
+
+.filter-group select,
+.filter-group input[type="text"] {
+  padding: 5px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+  color: #ffffff; /* White Text */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Glowing effect */
+}
+
+/* Updated CSS for Table */
+#entryTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+#entryTable th,
+#entryTable td {
+  border: 1px solid #ffffff; /* White border for table cells */
+  padding: 10px;
+}
+/* Updated CSS for Table Action Cell */
+#entryTable td.action-cell {
+  display: flex;
+  justify-content: space-between;
+}
+
+#entryTable td.action-cell button {
+  margin-right: 5px;
+}
+
+#entryTable th {
+  background-color: #39ff14; /* Neon Green for table header */
+  color: #000000; /* Black text in table header */
+}
+
+#entryTable td {
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.1
+  ); /* Semi-transparent background for table cells */
+  color: #ffffff; /* White text in table cells */
+}
+
+#entryTable tr:hover {
+  background-color: rgba(255, 255, 255, 0.2); /* Lighter background on hover */
+}

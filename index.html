@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Anime Tracker</title>
     <link rel="stylesheet" href="styles.css" />
+    <!-- Font Awesome CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
   </head>
   <body>
     <header>
@@ -13,48 +18,82 @@
     <main>
       <!-- Add your form for adding anime entries here -->
       <form id="animeForm">
-        <label for="title">Title:</label>
-        <input type="text" id="title" name="title" required /><br />
-
-        <label for="synopsis">Synopsis:</label>
-        <textarea id="synopsis" name="synopsis" rows="4" required></textarea
-        ><br />
-
-        <label for="genre">Genre:</label>
-        <input type="text" id="genre" name="genre" required /><br />
-
-        <label for="rating">Rating:</label>
-        <input type="number" id="rating" name="rating" min="1" max="10" /><br />
-
-        <label for="completed">Completed:</label>
-        <input type="checkbox" id="completed" name="completed" /><br />
-
-        <label for="platform">Platform:</label>
-        <input type="text" id="platform" name="platform" /><br />
-
+        <input
+          type="text"
+          id="title"
+          name="title"
+          placeholder="Title"
+          required
+        />
+        <textarea
+          id="synopsis"
+          name="synopsis"
+          rows="4"
+          placeholder="Synopsis"
+          required
+        ></textarea>
+        <input
+          type="text"
+          id="genre"
+          name="genre"
+          placeholder="Genre"
+          required
+        />
+        <input
+          type="number"
+          id="rating"
+          name="rating"
+          min="1"
+          max="10"
+          placeholder="Rating"
+        />
+        <div class="radio-group">
+          <label>
+            <input type="radio" name="completed" value="yes" />
+            <span>Completed</span>
+          </label>
+          <label>
+            <input type="radio" name="completed" value="no" />
+            <span>Not Completed</span>
+          </label>
+        </div>
+        <input
+          type="text"
+          id="platform"
+          name="platform"
+          placeholder="Platform"
+        />
         <button type="submit">Add Anime</button>
-        <button type="button" id="editBtn" style="display: none">
-          Save Changes
-        </button>
+        <button type="button" id="editBtn">Save Changes</button>
       </form>
       <!-- Search and Filter Section -->
       <div id="searchFilterSection">
-        <label for="searchInput">Search:</label>
-        <input type="text" id="searchInput" name="searchInput" />
-
-        <label for="genreFilter">Filter by Genre:</label>
-        <select id="genreFilter" name="genreFilter">
-          <option value="">All Genres</option>
-          <!-- Add more genre options as needed -->
-        </select>
-
-        <label for="completedFilter">Filter by Completion:</label>
-        <select id="completedFilter" name="completedFilter">
-          <option value="">All</option>
-          <option value="yes">Completed</option>
-          <option value="no">Not Completed</option>
-        </select>
+        <div class="filter-group">
+          <label for="searchInput">Search:</label>
+          <input
+            type="text"
+            id="searchInput"
+            name="searchInput"
+            placeholder="Search anime..."
+          />
+        </div>
+        <div class="filter-group">
+          <label for="genreFilter">Filter by Genre:</label>
+          <select id="genreFilter" name="genreFilter">
+            <option value="">All Genres</option>
+            <!-- Add more genre options as needed -->
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="completedFilter">Filter by Completion:</label>
+          <select id="completedFilter" name="completedFilter">
+            <option value="">All</option>
+            <option value="yes">Completed</option>
+            <option value="no">Not Completed</option>
+          </select>
+        </div>
       </div>
+
       <!-- Anime Entries Table -->
       <table id="entryTable">
         <thead>
