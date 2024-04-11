@@ -26,8 +26,24 @@
         <!-- Add more fields as needed -->
 
         <button type="submit">Add Anime</button>
+        <button type="button" id="editBtn" style="display: none">
+          Save Changes
+        </button>
       </form>
-
+      <table id="entryTable">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Synopsis</th>
+            <th>Genre</th>
+            <th>Rating</th>
+            <th>Completed</th>
+            <th>Platform</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
       <!-- Example form fields: Title, Synopsis, Genre, etc. -->
     </main>
     <script src="renderer.js"></script>
