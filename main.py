@@ -74,14 +74,21 @@ def add_entry(table, header):
 
 # Function to handle editing an entry
 def edit_entry(table, row, header):
-    data = {
-        header[col]: table.item(row, col).text() for col in range(table.columnCount())
-    }
-    dialog = EntryDialog(header, data)
-    if dialog.exec_() == QDialog.Accepted:
-        new_data = dialog.get_data()
-        for col, head in enumerate(header):
-            table.setItem(row, col, QTableWidgetItem(new_data[head]))
+    data = {}
+    for col in range(table.columnCount()):
+        cell_item = table.item(row, col)
+        column_name = header[col]  # Get the column name using the column index
+        data[column_name] = (
+            cell_item.text() if cell_item else ""
+        )  # Get the cell text or set to empty string if None
+
+    # Now you can use 'data' for editing operations
+    # print(data)
+
+    # he data is directly edited and needs to be updated in the table
+    for col, column_name in enumerate(header):
+        if column_name in data:
+            table.setItem(row, col, QTableWidgetItem(data[column_name]))
 
 
 # Function to handle deleting an entry
@@ -117,7 +124,7 @@ if __name__ == "__main__":
     button_delete = QPushButton("Delete Entry", window)
     button_delete.clicked.connect(lambda: delete_entry(table))
 
-    table.cellDoubleClicked.connect(lambda row, column: edit_entry(table, row, column))
+    table.cellDoubleClicked.connect(lambda row, column: edit_entry(table, row, header))
 
     layout = QVBoxLayout()
     layout.addWidget(button_add)
