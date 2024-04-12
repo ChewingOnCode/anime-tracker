@@ -63,18 +63,12 @@ All notable changes to this project will be documented in this file.
 - Fixed display issues with the genre filter and other UI elements.
 - Improved error handling for better user experience.
 
-## [Unreleased]
-
+## [1.4.0] - 2024-04-13
 ### Added
-
-- [List any new features or enhancements here]
+- Pagination support for the anime list table to enhance user navigation through large datasets.
 
 ### Changed
+- Updated the `populate_table` function to handle page-based data slicing.
 
-- [List any changes or improvements made since version 1.3.0, including changes from main.py]
-
-## [Unreleased]
-
-### Added
-
-- [List any upcoming features or changes that are still in progress]
+### Fixed
+- Minor UI adjustments for better alignment of pagination controls.
