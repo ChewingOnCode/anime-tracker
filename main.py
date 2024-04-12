@@ -1,7 +1,7 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QTableWidgetItem, QMessageBox
 from ui_components import MainApplicationWindow
-from dialogs import EntryDialog
+from dialogs import EntryDialog, confirm_deletion
 from data_manager import (
     read_csv_data,
     write_csv_data,
@@ -48,7 +48,7 @@ def main():
     )
 
     window.button_delete.clicked.connect(
-        lambda: delete_entry(window, data, csv_file_path)
+        lambda: delete_entry(window, data, header, csv_file_path)
     )
 
     window.show()
@@ -80,12 +80,20 @@ def add_entry(window, header, data, file_path):
         populate_table(window, data, header)
 
 
-def delete_entry(window, data, file_path):
+def delete_entry(window, data, header, file_path):
     selected_row = window.table.currentRow()
     if selected_row >= 0:
-        data.pop(selected_row)
-        window.table.removeRow(selected_row)
-        write_csv_data(file_path, header, data)
+        entry_name = window.table.item(
+            selected_row, 0
+        ).text()  # Assuming name is in the first column
+        if confirm_deletion(window, entry_name):  # This checks for user confirmation
+            data.pop(selected_row)
+            window.table.removeRow(selected_row)
+            write_csv_data(file_path, header, data)
+        else:
+            print(
+                "Deletion canceled."
+            )  # Optional: for debugging, see if this is reached
 
 
 if __name__ == "__main__":
