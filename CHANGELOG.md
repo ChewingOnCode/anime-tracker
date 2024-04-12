@@ -15,7 +15,7 @@ All notable changes to this project will be documented in this file.
 - Updated UI styling and layout.
 - Improved input validation for anime entries.
 
-## [1.0.0] - 2023-01-01
+## [1.0.0] - 2024-04-11
 
 ### Added
 
@@ -27,7 +27,7 @@ All notable changes to this project will be documented in this file.
 
 - Updated styling to match a cyberpunk-inspired theme.
 
-## [1.1.0] - 2023-02-01
+## [1.1.0] - 22024-04-11
 
 ### Added
 
@@ -39,7 +39,7 @@ All notable changes to this project will be documented in this file.
 - Updated styling for a more modern look.
 - Enhanced entry form with additional fields (synopsis, platform, language).
 
-## [1.2.0] - 2023-03-01
+## [1.2.0] - 2024-04-11
 
 ### Added
 
@@ -51,7 +51,7 @@ All notable changes to this project will be documented in this file.
 - Improved performance and responsiveness of the app.
 - Fixed minor UI bugs.
 
-## [1.3.0] - 2023-04-01
+## [1.3.0] - 2024-04-11
 
 ### Added
 
