@@ -63,7 +63,7 @@ All notable changes to this project will be documented in this file.
 - Fixed display issues with the genre filter and other UI elements.
 - Improved error handling for better user experience.
 
-## [1.4.0] - 2024-04-13
+## [1.4.0] - 2024-04-12
 ### Added
 - Pagination support for the anime list table to enhance user navigation through large datasets.
 
@@ -73,11 +73,12 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - Minor UI adjustments for better alignment of pagination controls.
 
-## Version 1.4.2
-
+## [1.5.0] - 2024-04-12
+### Added
 **Release Highlights:**
 - Added tagging functionality to the Anime Series Tracker. Users can now add and filter anime entries based on custom tags, enhancing the organizational capabilities of the app.
 
+### Changed
 **Bug Fixes:**
 - Addressed minor UI responsiveness issues.
 - Fixed a bug where filters were not resetting correctly.
