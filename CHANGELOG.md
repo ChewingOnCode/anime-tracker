@@ -72,3 +72,17 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 - Minor UI adjustments for better alignment of pagination controls.
+
+## Version 1.4.2
+
+**Release Highlights:**
+- Added tagging functionality to the Anime Series Tracker. Users can now add and filter anime entries based on custom tags, enhancing the organizational capabilities of the app.
+
+**Bug Fixes:**
+- Addressed minor UI responsiveness issues.
+- Fixed a bug where filters were not resetting correctly.
+
+**Known Issues:**
+- None reported.
+
+We recommend all users to update to this latest version to enjoy the new features and improvements.
