@@ -86,4 +86,19 @@ All notable changes to this project will be documented in this file.
 **Known Issues:**
 - None reported.
 
+## [1.6.0] - 2024-04-14
+
+### Added
+- **Settings Dialog**: Introduced a new Settings Dialog that allows users to customize their application settings, including themes and items per page. This enhancement aims to provide users with a more personalized and controlled experience.
+- Preparation for further dialog enhancements, including an Advanced Search Dialog and a Help Dialog, to improve user interactivity and access to information.
+
+### Changed
+- Modularized codebase to improve maintainability and separation of concerns, ensuring a clearer organization by dividing code into UI components, dialogs, and data management modules.
+- Enhanced data management logic to handle CSV file interactions more efficiently, reducing potential errors and increasing performance.
+
+### Fixed
+- Addressed an issue where filtered table entries were not correctly displayed at the top of the table. Now, filtered results appear as expected, enhancing usability.
+- Resolved various minor bugs and performance issues to ensure a smoother user experience.
+
+
 We recommend all users to update to this latest version to enjoy the new features and improvements.
