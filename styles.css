@@ -1,166 +1,96 @@
-/* CSS for NUE Minimalistic Clean Look */
-
-/* Custom color variables */
-:root {
-  --primary-color: #121212; /* Dark Background */
-  --accent-color: #39ff14; /* Neon Green */
-  --text-color: #ffffff; /* White Text */
-}
-/* Global styles */
-body {
-  font-family: "Roboto", sans-serif;
-  background-color: #121212; /* Dark Background */
-  color: #ffffff; /* White Text */
+/* styles.css */
+body,
+html {
   margin: 0;
   padding: 0;
+  font-family: "Roboto", sans-serif;
+  /* Using a modern font */
+  color: #eee;
+  background-color: #181818;
+}
+header {
+  background-color: #202020;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  color: white;
 }
 
-.container {
-  max-width: 800px;
-  margin: 0 auto;
+main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   padding: 20px;
 }
 
-header {
-  text-align: center;
-  padding: 20px 0;
+#search-input {
+  margin: 10px auto;
+  display: block;
 }
-
-header h1 {
-  font-size: 2rem;
-  margin-bottom: 10px;
-}
-
-form {
-  max-width: 500px;
-  margin: 0 auto;
-}
-
-input[type="text"],
-textarea,
-input[type="number"],
-button {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid transparent;
-  border-radius: 5px;
-  background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
-  color: #ffffff; /* White Text */
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Glowing effect */
-}
-
-input[type="text"]::placeholder,
-textarea::placeholder {
-  color: rgba(255, 255, 255, 0.5); /* Placeholder text color */
-}
-
-input[type="radio"] {
-  margin-right: 5px;
-  appearance: none; /* Remove default radio button appearance */
-}
-
-input[type="radio"]::before {
-  content: "";
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 1px solid #ffffff; /* White border for radio button */
-  background-color: transparent;
-  vertical-align: middle; /* Align radio button vertically */
-}
-
-input[type="radio"]:checked::before {
-  background-color: #39ff14; /* Neon Green when checked */
-}
-
-button {
-  background-color: #39ff14; /* Neon Green */
-  border: none;
+.anime-card {
+  background-color: #333;
+  margin: 10px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease-in-out;
+  width: 200px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
-button:hover {
-  background-color: #29b813; /* Brighter green on hover */
+.anime-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
 }
 
-.radio-group {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-
-.radio-group label {
-  display: flex;
-  align-items: center;
-  margin-right: 15px;
-}
-
-.radio-group span {
-  color: #ffffff; /* White text color */
-  font-size: 1rem;
-}
-
-/* Updated CSS for Filter Section */
-.filter-group {
-  display: inline-block;
-  margin-right: 15px;
-}
-
-.filter-group label {
-  color: #ffffff; /* White label text */
-  margin-right: 5px;
-}
-
-.filter-group select,
-.filter-group input[type="text"] {
-  padding: 5px;
-  border: 1px solid transparent;
-  border-radius: 5px;
-  background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
-  color: #ffffff; /* White Text */
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Glowing effect */
-}
-
-/* Updated CSS for Table */
-#entryTable {
+.anime-card img {
+  display: block;
   width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 5px;
 }
 
-#entryTable th,
-#entryTable td {
-  border: 1px solid #ffffff; /* White border for table cells */
-  padding: 10px;
-}
-/* Updated CSS for Table Action Cell */
-#entryTable td.action-cell {
-  display: flex;
-  justify-content: space-between;
+.anime-card:hover img {
+  opacity: 0.9;
 }
 
-#entryTable td.action-cell button {
-  margin-right: 5px;
+.anime-details {
+  display: none;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.9);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
-#entryTable th {
-  background-color: #39ff14; /* Neon Green for table header */
-  color: #000000; /* Black text in table header */
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
 }
 
-#entryTable td {
-  background-color: rgba(
-    255,
-    255,
-    255,
-    0.1
-  ); /* Semi-transparent background for table cells */
-  color: #ffffff; /* White text in table cells */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
 }
 
-#entryTable tr:hover {
-  background-color: rgba(255, 255, 255, 0.2); /* Lighter background on hover */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Additional responsive styles */
+@media (max-width: 600px) {
+  .anime-card {
+    width: 100%;
+  }
+
+  .anime-details {
+    padding: 10px;
+    font-size: 16px;
+  }
 }
