@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <h1>Anime Tracker</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><button class="btn" id="addAnimeBtn">Add New Anime</button>
+            </ul>
+        </nav>
+    </header>
+    <main id="anime-container">
+        <!-- Anime cards will be dynamically added here -->
+    </main>
+    <div id="addAnimeModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">×</span>
+            <h2>Add New Anime</h2>
+            <form id="animeForm" enctype="multipart/form-data">
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" required>
+            
+                <label for="dateWatched">Date Watched:</label>
+                <input type="date" id="dateWatched" name="dateWatched" required>
+            
+                <label for="rating">Rating:</label>
+                <input type="number" id="rating" name="rating" min="1" max="10" required>
+            
+                <label for="language">Language:</label>
+                <input type="text" id="language" name="language" required>
+            
+                <label for="coverImage">Cover Image:</label>
+                <input type="file" id="coverImage" name="coverImage" required>
+            
+                <button type="submit">Add New</button>
+            </form>
+            
+
+
+        </div>
+    </div>
+    <footer>
+        <p>© 2024 Anime Tracker</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+
+</html>
